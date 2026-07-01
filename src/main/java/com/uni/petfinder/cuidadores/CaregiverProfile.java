@@ -3,64 +3,49 @@ package com.uni.petfinder.cuidadores;
 import java.util.ArrayList;
 import java.util.List;
 
-// Producto del Builder: perfil de un cuidador con sus restricciones.
+// Perfil de un cuidador. RF 3.1 / RF 3.2: rol y restricciones de servicio.
 public class CaregiverProfile {
 
-    private String name;
-    private List<String> acceptedSpecies = new ArrayList<>();
-    private List<String> acceptedSizes = new ArrayList<>();
-    private boolean givesMedication;
-    private boolean idVerified;      // RNF 3.1
-    private boolean receivesAlerts;  // RF 3.3
+    private final String name;
+    private final String role;               // solidario, profesional, especializado
+    private final List<String> species = new ArrayList<>();
+    private boolean idVerified;              // RNF 3.1
+    private boolean receivesAlerts = true;   // RF 3.3
+
+    public CaregiverProfile(String name, String role) {
+        this.name = name;
+        this.role = role;
+    }
 
     public String getName() {
         return name;
     }
 
-    public List<String> getAcceptedSpecies() {
-        return acceptedSpecies;
+    public String getRole() {
+        return role;
     }
 
-    public List<String> getAcceptedSizes() {
-        return acceptedSizes;
+    public void acceptSpecies(String s) {
+        species.add(s);
     }
 
-    public boolean givesMedication() {
-        return givesMedication;
+    public List<String> getSpecies() {
+        return species;
     }
 
-    // RNF 3.1: el perfil solo se habilita si el documento fue validado.
-    public boolean isPublic() {
+    public boolean isIdVerified() {
         return idVerified;
     }
 
-    // RF 3.3: interruptor de alertas del módulo 1.
+    public void setIdVerified(boolean v) {
+        this.idVerified = v;
+    }
+
     public boolean receivesAlerts() {
         return receivesAlerts;
     }
 
-    public void toggleAlerts(boolean on) {
-        this.receivesAlerts = on;
-    }
-
-    // acceso de paquete: solo el builder arma el perfil.
-    void setName(String name) {
-        this.name = name;
-    }
-
-    void addSpecies(String s) {
-        acceptedSpecies.add(s);
-    }
-
-    void addSize(String s) {
-        acceptedSizes.add(s);
-    }
-
-    void setMedication(boolean b) {
-        this.givesMedication = b;
-    }
-
-    void setIdVerified(boolean b) {
-        this.idVerified = b;
+    public void setReceivesAlerts(boolean v) {
+        this.receivesAlerts = v;
     }
 }
