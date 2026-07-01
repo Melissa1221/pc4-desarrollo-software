@@ -1,20 +1,13 @@
 package com.uni.petfinder.busqueda;
 
-import java.util.ArrayList;
 import java.util.List;
 
-// RF 2.5: verificar pérdida contrasta los metadatos con las alertas activas.
-public class LostCheckSearch implements SearchStrategy {
+// RF 2.5: verificar pérdida contrasta con las alertas activas. Búsqueda no
+// implementada; aquí iría el cruce con la base de alertas.
+public class LostCheckSearch extends SearchTemplate {
 
     @Override
-    public List<String> search(ImageQuery query) {
-        List<String> matches = new ArrayList<>();
-        String species = query.get("species");
-        if (species != null) {
-            matches.add("Alerta activa que coincide en especie: " + species);
-        } else {
-            matches.add("Sin coincidencias en alertas activas");
-        }
-        return matches;
+    protected List<String> search(ImageQuery query) {
+        return List.of("(coincidencias contra las alertas activas)");
     }
 }
