@@ -12,6 +12,9 @@ public class LostPet {
     private final double lat;
     private final double lon;
 
+    // el reporte arranca activo y va cambiando de estado (patrón State).
+    private ReportState state = new ActiveState();
+
     public LostPet(String name, String species, String breed, String photo,
                    String description, String ownerId, double lat, double lon) {
         this.name = name;
@@ -22,6 +25,15 @@ public class LostPet {
         this.ownerId = ownerId;
         this.lat = lat;
         this.lon = lon;
+    }
+
+    public String getState() {
+        return state.name();
+    }
+
+    // avanza el reporte al siguiente estado.
+    public void advance() {
+        state = state.next();
     }
 
     public String getName() {
